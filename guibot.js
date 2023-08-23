@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const Discord = require('discord.js'),
       client = new Discord.Client();
 const chalk = require('chalk');
@@ -54,10 +55,10 @@ function command(message) {
     //       command = split[0].substr(1),
     //       args = split.slice(1);
 	
-    if (command == "בוא") return join(member, channel); // this command is here for testing ffmpeg (no longer used but leaving this behind in case I need to revisit)
-    if (command == "בוט") return help(args, message); // lists developer and contact info
+    // if (command == "בוא") return join(member, channel); // this command is here for testing ffmpeg (no longer used but leaving this behind in case I need to revisit)
+    if (command == "הומו") return help(args, message); 
     if (command == "פיפו") return draft(args, message); // randomly drafts 2 teams of players and moves to team voice channels
-    if (command == "איפוס") return gather(args, message); // returns drafted players back to pregame channel
+    if (command == "set") return gather(args, message); // returns drafted players back to pregame channel
     if (command == "שיר" || command == "שירים") return montage(args, message);  
     // if (message.content.includes('מתן') || message.content.includes('כלף') || message.content.includes('matan')) return specs(args, message); // my PC and peripheral specs 
     if (message.content.includes('משה') || message.content.includes('מושיקו')) return embed(message); // this command is here for testing rich embedding 
@@ -216,8 +217,8 @@ function help(args, message) {
 	if (!input) {
 	  const embed = new Discord.RichEmbed()
 
-		.setTitle('קראת לי?')
-		.setDescription(`אז אם כבר הערת אותי, בוא נשחק, תרשום בוט מי או בוט מה`)
+		.setTitle('הגרלת הומו הופעלה')
+		.setDescription(`בוא נשחק, תרשום הומו מי או הומו מה`)
   
 	  message.channel.send(embed)
 	} else {
@@ -230,10 +231,10 @@ function help(args, message) {
 		var member = message.guild.members.random().displayName
 		const embed2 = new Discord.RichEmbed()
 		.setThumbnail(member.avatarURL)
-		.setTitle(member)
+		.setTitle('האם   '  +  member)
 		.addField("הומו?", result)
-		.setFooter('😂😂😂😂😂😂😂😂😂😂😂😂😂')
-		.setImage(`https://media.tenor.com/images/8599601e72d0fac95cdbf6396094687f/tenor.gif`)
+		.setFooter('😂😂😂😂😂😂😂😂😂😂')
+		.setImage(`https://emoji.discadia.com/emojis/AniGay.gif`)
 		message.channel.send(embed2)
 
 	  } else {
@@ -269,18 +270,32 @@ function draft(args, message) {
     	});
 };
 
-async function gather(args, message) {
+ function gather(args, message) {
 	const voiceChannel = message.member.voiceChannel
-	if (!voiceChannel) return message.reply('**אין שחקנים בפיפו מה אתה מחפש לאפס סתם**').then(message => message.delete(120000));
-    	const channels = message.guild.channels.filter(x => x.name.toLowerCase().includes("team"));
-    	const vc = message.guild.channels.find(x => x.name.toLowerCase().includes("fifo"));
-    	for (let channel of channels) {
-        	if (channel.type != "voice") return;
-        	for (let member of channel.members) {
-          	await member.setVoiceChannel(vc)
-        }
-    	}
-	message.channel.send("שחקנים הוחזרו לערוץ הראשי בהצלחה");
+	if (!voiceChannel) return message.reply('**אין שחקנים בפיפו מה אתה מחפש לאפס סתם**').then(message => message.delete(60000));
+	
+	const channels = message.guild.channels.filter(x => x.name.toLowerCase().includes("team"));
+	if (!channels) return message.reply('**אין שחקנים בפיפו מה אתה מחפש לאפס סתם**').then(message => message.delete(30000));
+
+    	const vc = message.guild.channels.find(x => x.name == "pregame");
+
+		if (message.member.roles.has('671631357725638656')) {
+			for (const [channelID, channel] of channels) {
+				for (const [memberID, member] of channel.members) {
+				  member.setVoiceChannel('841599964143419403')
+					.then(() => console.log(`Moved ${member.user.tag}.`))
+					.catch(console.error);
+							}
+	 }	
+	 const embed = new Discord.RichEmbed();
+	 embed.setThumbnail('https://media1.giphy.com/media/POl26oYm14YtpDOpTi/giphy.gif?cid=ecf05e47vwh293zgreulcupfskbct6iqdlmt82hsctvq8d32&ep=v1_gifs_search&rid=giphy.gif&ct=g');
+	 embed.setTitle(`שחקנים הוחזרו לערוץ הראשי בהצלחה`);
+	 embed.setColor('#f4b342');
+
+	 message.channel.send(embed);
+		}
+		 else return message.reply('**אין לך הרשאה לאפס!**').then(message => message.delete(30000));
+
 };
 
 function join(member, channel) {
@@ -339,6 +354,35 @@ client.on('presenceUpdate', (oldMember, newMember) => {
 	const oldGame = oldMember.presence.game && [0, 1].includes(oldMember.presence.game.type) ? true : false;
 	const newGame = newMember.presence.game && [0, 1].includes(newMember.presence.game.type) ? true : false;
   
+
+if(newMember.presence.game.name == 'Microsoft Store') {  
+          console.log('ROBLOX detected!');
+          client.channels.get('797533178243317770').send(newMember.user + '\xa0\xa0\xa0' + '**\n ?אתה אמיתי שאתה משחק בחרא הזה \n**', {
+              files: [
+                  "https://github.com/amiboko/GAMERSUNITEDBOT/blob/main/img/ROBLOX.jpg?raw=true"
+                  ]
+              }).then(message => message.delete(3600000));
+          }
+          if(newMember.presence.game.name === 'League of Legends') {  
+            
+            const random = [
+              'https://sd.keepcalms.com/i-w600/be-gay-and-play-league-of-legends.jpg',
+              'https://i.imgur.com/MihhDQi.jpg',
+              ]
+            console.log('League of Legends detected!');
+            client.channels.get('797533178243317770').send(newMember.user + '\n\n', {
+                file: random[Math.floor(Math.random() * random.length)
+
+                    ]
+                    
+                }).then(message => message.delete(3600000));
+                
+            }
+
+
+
+
+
 	if (!oldGame && newGame) {         // Started playing.
 	  newMember.addRole(playingRole)
 		.then(() => console.log(`${playingRole.name} added to ${newMember.user.tag}.`))
@@ -351,6 +395,70 @@ client.on('presenceUpdate', (oldMember, newMember) => {
   });
 
 
+  client.on('message', async message => {
+
+	let botlist = ['משחק', 'מתארגן', 'אבוא', 'שחקנים', 'קואד', 'טריו', 'שחקן'] 
+  
+	let foundInText = false;
+	for (var i in botlist) { 
+	  if (message.content.toLowerCase().includes(botlist[i].toLowerCase())) foundInText = true;
+	}
+	  if (foundInText) {
+		if (message.author.bot) return;
+
+		const Moderator = message.guild.roles.find(role => role.id === '671631357725638656')
+		const embed1 = new Discord.RichEmbed()
+		.addField("All Roles", `This is the ${Moderator ? `${Moderator}` : "role not found"} role.`)
+		.setImage('https://media1.giphy.com/media/qt1RpaoZdOjShr4s9l/giphy.gif?cid=ecf05e47s8tym57xdx1t4uqty03abdxjstdwv29mxvrlq7jz&ep=v1_gifs_search&rid=giphy.gif&ct=g');
+		const embed2 = new Discord.RichEmbed()
+		.addField("**לכל מי שמשחק שלום**", `משתמש יקר ${Moderator ? `${Moderator}` : ""} מזמינים אותך לשחק`)
+		.setImage('https://media4.giphy.com/media/RFLjfSfyCkakeHqCrC/giphy.gif?cid=ecf05e47s8tym57xdx1t4uqty03abdxjstdwv29mxvrlq7jz&ep=v1_gifs_search&rid=giphy.gif&ct=g');
+		const embed3 = new Discord.RichEmbed()
+		.addField("**לכל מי שמשחק שלום**", `משתמש יקר ${Moderator ? `${Moderator}` : ""} מזמינים אותך לשחק`)
+		.setImage('https://media0.giphy.com/media/shwC8f9Pyf7VNnpwGT/giphy.gif?cid=ecf05e47s8tym57xdx1t4uqty03abdxjstdwv29mxvrlq7jz&ep=v1_gifs_search&rid=giphy.gif&ct=g');
+		const embed4 = new Discord.RichEmbed()
+		.addField("**לכל מי שמשחק שלום**", `משתמש יקר ${Moderator ? `${Moderator}` : ""} מזמינים אותך לשחק`)
+		.setImage('https://media3.giphy.com/media/1Gx8qcUfUoNIkhihDi/giphy.gif?cid=ecf05e47wj72f1ut5m3e1px6emctk6vek3rfqnwwgnu3b3vn&ep=v1_gifs_related&rid=giphy.gif&ct=g');
+
+		  
+		const answerlist = [embed1,embed2,embed3,embed4]
+		
+		let ansxd = answerlist[Math.floor(Math.random() * answerlist.length)];
+  
+		message.react('✅').then(() => message.react('❎'))
+	  
+		const filter = (reaction, user) => {
+			return ['✅', '❎'].includes(reaction.emoji.name) && user.id === message.author.id;
+		};
+  
+		message.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] }).then(collected => {const reaction = collected.first();
+		
+				if (reaction.emoji.name === '✅') {
+				
+					message.reply(ansxd);
+				}
+				else {
+					message.reply('לא רוצה לא צריך').then(message => message.delete(120000));
+				}
+			})
+			.catch(collected => {
+				console.log(`${collected.size}`);
+				message.reply('אתה מזרים למשחק סתם באמא').then(message => message.delete(120000));
+				
+			});
+	}
+	const userReactions = message.reactions.filter(reaction => reaction.users.has(userId));
+try {
+    for (const reaction of userReactions.values()) {
+        await reaction.users.remove(userId);
+    }
+} catch (error) {
+    console.error('Failed to remove reactions.');
+}
+  });
+
+
+  
   client.on("presenceUpdate", (oldGuildMember, newGuildMember) => {
    
     const Role = newGuildMember.guild.roles.get('1138802019075891220');
@@ -385,9 +493,10 @@ client.on('presenceUpdate', (oldMember, newMember) => {
 	  const embed = new Discord.RichEmbed()
 	  .setTitle("**מצב נוכחי**")
 	  .setColor('#0099ff')
-	  .addField('משתמשים', `**${message.guild.memberCount}**`, true)
-	  .addBlankField(true)
-	  .addField('שרמוטות', `**${message.guild.members.filter(member => !member.user.bot).size}**`, true)
+	  .addField('סהכ', `**${message.guild.memberCount}**`, true)
+	  .setThumbnail('https://images-ext-1.discordapp.net/external/zAH35AhJ-Hvac6L7-IIbN52vrUMhnVe79smtEX-MVdI/https/cdn-longterm.mee6.xyz/plugins/embeds/images/583574396686434304/bb005d43bf4aa287053d156edcf50ed163882cdf3766c2b77da4f852d7640aad.png')
+	
+	  .addField('משתמשים', `**${message.guild.members.filter(member => !member.user.bot).size}**`, true)
 	  .addField('בוטים', `**${message.guild.members.filter(member => member.user.bot).size}**`, true)
 	  .addField('דוח סטטוס', `**${message.guild.members.filter(o => o.presence.status === 'online').size}** Online\n**${message.guild.members.filter(i => i.presence.status === 'idle').size}** Inactive\n**${message.guild.members.filter(dnd => dnd.presence.status === 'dnd').size}** Do Not Disturb\n**${message.guild.members.filter(off => off.presence.status === 'offline').size}** Offline\n**${message.guild.members.filter(s => s.presence.status === 'streaming').size}** Streaming`)
 	  .setFooter(`© MASTERBOT`)
@@ -511,11 +620,47 @@ client.on('presenceUpdate', (oldMember, newMember) => {
 		  console.error(e);
 		});
 	  }}
-  
-  
-	}
+  	}
   });
+
+
+  client.on('voiceStateUpdate', (oldMember, newMember) => {
+	const newUserChannel = newMember.voiceChannel
+	const oldUserChannel = oldMember.voiceChannel
+	const channel = client.channels.get('797533178243317770');
   
+	if(oldUserChannel === undefined && newUserChannel !== undefined) {
+	  // if (!client.voiceConnections.bot) return;
+	  if (newMember.id === '429742796052889600') {
+		// client.channels.get('797533178243317770').send(newMember + 'ברוך הבא מלך הטברנה');
+		// let role = newMember.guild.roles.find(role => role.name === "Verified");
+		// newMember.addRole(role);
+		// const embed = new Discord.RichEmbed()
+		// .setAuthor("Verificaiton")
+		// .setDescription("You have been verified")
+		// .setFooter(newMember.guild.name)
+		// .setColor("#98AFC7")
+		// newMember.sendMessage(embed);
+	  
+	  if (!client.voiceConnections.some(conn => conn.channel.id == newUserChannel.id)) {
+		newUserChannel.join().then(connection => {
+		  const dispatcher = connection.playFile('./img/sharon.mp3', {volume: 1.0});
+		  dispatcher.on('end', function () { 
+			 setTimeout(function () { newUserChannel.leave() }, 5000);
+			 
+		   });
+	
+		  console.log("amit connected.");
+		}).catch(e => {
+  
+		  console.error(e);
+		});
+	  }}
+  	}
+  }); 
+
+
+
   
 client.on('message', message => {
   
@@ -538,22 +683,27 @@ client.on('message', message => {
 
   client.on('message', async message => {
 
-	let botlist = ['noob', 'אייל גולן', 'יא הומו','נוב','גיי','בוט הומו','בוט זיין','בוט זין', 'בוט מוצץ', 'בוט מסריח', 'בוט מזדיין'] 
+	let botlist = ['בוט','bot'] 
   
 	let foundInText = false;
 	for (var i in botlist) { 
-	  if (message.content.toLowerCase().includes(botlist[i].toLowerCase())) foundInText = true;
+	  if (message.content.includes(botlist[i].toLowerCase())) foundInText = true;
 	}
 	  if (foundInText) {
 		if (message.author.bot) return;
 		//message.delete();
   
-		let answerlist = [            '**גילית כבר שאתה הומו?**'
-			  ,'**קוקסינל מטומטם**'
-			  ,'**עכשיו אתה מבין למה אין לך חברים?**'
-			  ,'**לפי החישובים שלי נמצא כי אתה 100% גיי**'
-			  ,'**אתה צריך טיפול נשמה**'
-			  ,'**יש לי פסיכיאטרית מקצועית להביא לך מספר?**'
+		let answerlist = [            '**היי**'
+			  ,'**כן?**'
+			  ,'**שלום**'
+			  ,'**מה קורה חיים שייליי**'
+			  ,'**מהההההה**'
+			  ,'**תגיד...יש מצב ההורים שלך אחים?**'
+			  ,'**יכול להיות שאתה חייזר?**'
+			  ,'**נו מה יהיה**'
+			  ,'**דיי נו**'
+			  ,'**גע בי**'
+			  ,'**אה**'
   
 			]
 		
@@ -565,7 +715,7 @@ client.on('message', message => {
 
   client.on('message', async message => {
 
-	let blacklisted = ['זיין', 'גאבנו', 'סוכה', 'זונה', 'שרמוטה', 'קוקסינל', 'תחת', 'חרא', 'בולבול', 'מכוער'
+	let blacklisted = ['זיין', 'גאבנו', 'סוכה', 'זונה', 'שרמוט', 'קוקסינל', 'תחת', 'חרא', 'בולבול', 'מכוער'
 	, 'דפוק', 'אידיוט', 'חמור', 'מנייאק', 'מניאק', 'FUCK', 'fuck', 'מגעיל', 'טיפש',
 	 'pussy', 'PUSSY', 'ass', 'ASS', 'כוסרבאק', 'כוס', 'כוסאומו','כוסראבק', 'מנוול' , 'מנוולת' , 'זין','ז י ן','דבע','ינעל','גרוע','ימיזדיין','ז ו נ ה',' ש ר מ ו ט ה','ב י צ י ם'] 
   
@@ -618,7 +768,7 @@ client.on('message', message => {
 	if(message.content.includes('חלע')) {
 	  if (message.author.bot) return;
 	  const embed = new Discord.RichEmbed()
-	  .setTitle('`💣💣💣💣💣💣💣💣💣💣💣💣💣💣💣💣💣💣💣`')
+	  .setTitle('`💣💣💣💣💣💣💣💣💣💣💣💣💣💣💣💣`')
 	  .setColor("#D61F1F")
 	  .setImage('https://media.tenor.com/BrW62hJ1-Z0AAAAC/rambo-first-blood.gif')
   
@@ -641,7 +791,19 @@ client.on('message', message => {
 	}
   });
 
-
+  client.on('message', message => {
+	
+	if(message.content.includes('מלחמה')) {
+	  if (message.author.bot) return;
+	  const embed = new Discord.RichEmbed()
+	  .setDescription(`${message.author}`)
+	  .setColor("#D61F1F")
+	  .setImage('https://media2.giphy.com/media/7EFCu9NGr4bSXFoXcY/giphy.gif?cid=ecf05e471vhznwqhi2lz87o02pq56cho695zo5erym5bc6ix&ep=v1_gifs_search&rid=giphy.gif&ct=g')
+  
+		message.channel.send(embed);
+		
+	}
+  });
 
   client.on('message', message => {
 	
@@ -695,15 +857,6 @@ client.on('message', message => {
 	}
   });
   
-
-  client.on('message', message => {
-	
-	if(message.content.includes('הומו')) {
-	  if (message.author.bot) return;
-		message.channel.send('https://emoji.discadia.com/emojis/AniGay.gif');
-		
-	}
-  });
 
 
   client.on('message', message => {
