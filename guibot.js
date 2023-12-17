@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 const Discord = require('discord.js'),
       client = new Discord.Client();
+
 const chalk = require('chalk');
-const c = require('config');
 const dotenv = require("dotenv");
 dotenv.config();
 const token = process.env.DISCORD_BOT_SECRET;
-client.config = require('./config.js')
+const BotkitDiscord = require('botkit-discord');
 
 client.on('ready', () => {
     client.user.setPresence({ status: 'Playing', game: { name: 'בבייצים' } });
