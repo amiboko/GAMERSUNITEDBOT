@@ -416,15 +416,15 @@ client.on('message', async message => {
 		const embed1 = new Discord.RichEmbed()
 		.setTitle('אתם גם ככה במשחק אז תנו בקליק <a:down:1149230468856827935> <#1133811152976085092>')
 		.addField('<a:line:1149230466566737980><a:line:1149230466566737980><a:line:1149230466566737980>', `${Moderator ? `${Moderator}` : ""}`)
-		.setImage('https://media1.giphy.com/media/qt1RpaoZdOjShr4s9l/giphy.gif?cid=ecf05e47s8tym57xdx1t4uqty03abdxjstdwv29mxvrlq7jz&ep=v1_gifs_search&rid=giphy.gif&ct=g');
+		.setImage('https://media.giphy.com/media/EFeuZSiPSymM6YYrbr/giphy.gif');
 		const embed2 = new Discord.RichEmbed()
 		.setTitle('אתם גם ככה במשחק אז תנו בקליק <a:down:1149230468856827935> <#1133811152976085092>')
 		.addField('<a:line:1149230466566737980><a:line:1149230466566737980><a:line:1149230466566737980>', `${Moderator ? `${Moderator}` : ""}`)
-		.setImage('https://media1.giphy.com/media/qt1RpaoZdOjShr4s9l/giphy.gif?cid=ecf05e47s8tym57xdx1t4uqty03abdxjstdwv29mxvrlq7jz&ep=v1_gifs_search&rid=giphy.gif&ct=g');
+		.setImage('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGNvYThiaDhrZ242M2xwdTdlcjI3ejBtaW40NmpxNGJxYjZ0Zzl3eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lfHrUAr831oqC1so8O/giphy.gif');
 		const embed3 = new Discord.RichEmbed()
 		.setTitle('אתם גם ככה במשחק אז תנו בקליק <a:down:1149230468856827935> <#1133811152976085092>')
 		.addField('<a:line:1149230466566737980><a:line:1149230466566737980><a:line:1149230466566737980>', `${Moderator ? `${Moderator}` : ""}`)
-		.setImage('https://media1.giphy.com/media/qt1RpaoZdOjShr4s9l/giphy.gif?cid=ecf05e47s8tym57xdx1t4uqty03abdxjstdwv29mxvrlq7jz&ep=v1_gifs_search&rid=giphy.gif&ct=g');
+		.setImage('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHA0Z2ZudWw4eGF1YjJ0dndjeGdjMjVjMjVxYTdjdDdyYnc1dm8wZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7EFCu9NGr4bSXFoXcY/giphy-downsized-large.gif');
 		const embed4 = new Discord.RichEmbed()
 		.setTitle('אתם גם ככה במשחק אז תנו בקליק <a:down:1149230468856827935> <#1133811152976085092>')
 		.addField('<a:line:1149230466566737980><a:line:1149230466566737980><a:line:1149230466566737980>', `${Moderator ? `${Moderator}` : ""}`)
