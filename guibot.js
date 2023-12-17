@@ -5,7 +5,7 @@ const chalk = require('chalk');
 const dotenv = require("dotenv");
 dotenv.config();
 const token = process.env.DISCORD_BOT_SECRET;
-const BotkitDiscord = require('botkit-discord');
+
 
 client.on('ready', () => {
     client.user.setPresence({ status: 'Playing', game: { name: 'בבייצים' } });
