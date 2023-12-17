@@ -1,0 +1,30 @@
+{
+  "name": "guibot-master",
+  "version": "1.0.0",
+  "description": "Gamers United Israel Bot",
+  "main": "guibot.js",
+  "scripts": {
+    "start": "node guibot.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/opus": "^0.9.0",
+    "chalk": "^4.1.2",
+    "config": "^3.3.9",
+    "cron": "^2.4.0",
+    "discord.js": "^11.6.4",
+    "dotenv": "^16.3.1",
+    "each-async": "^2.0.0",
+    "enmap": "^5.9.8",
+    "ffmpeg": "^0.0.4",
+    "fix-path": "^3.0.0",
+    "got": "^11.8.3",
+    "indent-string": "^5.0.0",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
+    "node-fetch": "^2.6.6",
+    "request": "^2.88.2",
+    "ytdl-core": "^4.11.5"
+  }
+}
